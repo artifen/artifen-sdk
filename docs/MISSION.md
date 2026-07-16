@@ -29,5 +29,17 @@
 ## Règle absolue
 > Aucune nouvelle fonctionnalité avant que la CI soit verte sur `main`.
 
+## Gouvernance
+> Le SDK ne grandit que lorsqu'un vrai plugin en a besoin.
+> Pas de feature sans use case validé par un module.
+
+## Définition du "Done"
+- [ ] Code écrit
+- [ ] Tests verts
+- [ ] PHPStan max level
+- [ ] CS validé
+- [ ] Documentation à jour
+- [ ] Exemple fonctionnel
+
 ## Règle stricte
 > Aucune ligne WordPress dans `artifen/sdk`. Jamais.

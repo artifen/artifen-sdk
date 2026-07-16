@@ -1,7 +1,8 @@
-node_modules/
-vendor/
+/vendor/
+/.cache/
+/composer.lock
+/.phpunit.result.cache
+/artifen-sdk.zip
 .env
 *.log
-dist/
-build/
 .DS_Store

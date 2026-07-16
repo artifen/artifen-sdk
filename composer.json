@@ -1,0 +1,41 @@
+{
+    "name": "artifen/sdk",
+    "description": "Artifen SDK — The AI Development Platform for WordPress",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Auguste",
+            "role": "CEO & Founder"
+        }
+    ],
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0",
+        "phpstan/phpstan": "^1.12",
+        "vimeo/psalm": "^5.24",
+        "squizlabs/php_codesniffer": "^3.10",
+        "rector/rector": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Artifen\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Artifen\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse",
+        "lint": "phpcs",
+        "fix": "phpcbf",
+        "refactor": "rector"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

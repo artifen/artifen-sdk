@@ -4,39 +4,73 @@ declare(strict_types=1);
 
 namespace Artifen\Core;
 
-class Kernel
+use Artifen\Contracts\{Kernel as KernelInterface, LLMProvider, Agent, Skill, Prompt, Response, Context};
+use Artifen\Pipeline\ExecutionPipeline;
+
+class Kernel implements KernelInterface
 {
-    public function __construct(
-        private array $providers = [],
-        private array $agents = [],
-        private array $skills = [],
-    ) {}
+    private Registry $registry;
+    private ExecutionPipeline $pipeline;
+    private array $options = [];
 
-    public function registerProvider(string $name, object $provider): self
+    public function __construct()
     {
-        $this->providers[$name] = $provider;
+        $this->registry = new Registry();
+        $this->pipeline = new ExecutionPipeline();
+    }
+
+    public static function make(): self
+    {
+        return new self();
+    }
+
+    public function provider(string $name, LLMProvider $instance): self
+    {
+        $this->registry->provider($name, $instance);
         return $this;
     }
 
-    public function registerAgent(object $agent): self
+    public function agent(Agent $instance): self
     {
-        $this->agents[$agent->id()] = $agent;
+        $this->registry->agent($instance->id(), $instance);
         return $this;
     }
 
-    public function registerSkill(object $skill): self
+    public function skill(Skill $instance): self
     {
-        $this->skills[$skill->name()] = $skill;
+        $this->registry->skill($instance->name(), $instance);
         return $this;
     }
 
-    public function provider(string $name): ?object
+    public function prompt(Prompt $instance): self
     {
-        return $this->providers[$name] ?? null;
+        $this->registry->prompt($instance->path(), $instance);
+        return $this;
     }
 
-    public function agent(string $id): ?object
+    public function with(string $key, mixed $value): self
     {
-        return $this->agents[$id] ?? null;
+        $this->options[$key] = $value;
+        return $this;
     }
+
+    public function run(string $agent, string $task, ?string $provider = null): Response
+    {
+        $provider ??= $this->registry->defaultProvider();
+        $providerInstance = $this->registry->provider($provider);
+
+        $agentInstance = $this->registry->agent($agent);
+        $prompt = $this->registry->prompt("agents/{$agent}");
+
+        return $this->pipeline
+            ->addStage('prompt', fn($ctx) => [...$ctx, 'prompt' => $prompt->render(['task' => $task])])
+            ->addStage('llm', fn($ctx) => [...$ctx, 'raw' => $providerInstance->chat(
+                [['role' => 'user', 'content' => $ctx['prompt']]],
+                ['temperature' => 0.7]
+            )])
+            ->execute(['task' => $task, 'agent' => $agent, 'provider' => $provider]);
+    }
+
+    public function registry(): Registry { return $this->registry; }
+    public function llm() { return $this->registry; }
 }

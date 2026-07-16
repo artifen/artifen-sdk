@@ -1,0 +1,58 @@
+{
+  "brand": "Artifen",
+  "tagline": "Build Smarter",
+  "mission": "Donner aux créateurs le pouvoir de construire des plateformes intelligentes — sans réinventer l'infrastructure.",
+  "vision": "Devenir le standard open-source pour le développement de plugins et applications WordPress assisté par IA.",
+  "values": [
+    "Simplicité d'abord",
+    "Modules, pas monolithes",
+    "Open-source par défaut",
+    "IA au service du créateur"
+  ],
+  "colors": {
+    "primary": "#7C3AED",
+    "primary_light": "#A78BFA",
+    "accent": "#0891B2",
+    "accent_light": "#22D3EE",
+    "background": "#FAF5FF",
+    "foreground": "#1E1B4B",
+    "card": "#FFFFFF",
+    "muted": "#F1F5F9",
+    "muted_foreground": "#64748B",
+    "border": "#E2E8F0",
+    "success": "#059669",
+    "warning": "#D97706",
+    "destructive": "#DC2626"
+  },
+  "typography": {
+    "display": {
+      "family": "Inter",
+      "weight": 700,
+      "size": "clamp(2rem, 5vw, 4rem)"
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 400,
+      "size": "1rem"
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "weight": 400,
+      "size": "0.875rem"
+    },
+    "heading": {
+      "family": "Inter",
+      "weight": 600,
+      "size": "1.5rem"
+    }
+  },
+  "voice": {
+    "tone": "Confiant mais accessible. Technique mais pas froid. Précis mais pas sec.",
+    "rules": [
+      "Tutoiement (tu)",
+      "Phrases courtes",
+      "Éviter le jargon marketing creux",
+      "Montrer, pas juste dire"
+    ]
+  }
+}

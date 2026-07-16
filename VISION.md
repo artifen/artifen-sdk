@@ -1,62 +1,103 @@
-# Artifen — Constitution du Projet v2
+# Artifen — Constitution du Projet v3
 
-**Version :** 2.0
+**Version :** 3.0 (Finale)
 **Date :** 16 Juillet 2026
 **Fondateur :** Auguste
 
 ## La Grande Ambition
-> Devenir le Symfony des agents IA en PHP.
-> Le framework d'orchestration d'agents pour PHP.
+> Le framework PHP d'agents IA spécialisé WordPress.
+> Le Symfony des agents IA en PHP.
 
-## Principes fondateurs
-1. **SDK d'abord.** Le plugin WordPress est une démonstration, pas le produit.
-2. **API publique stable.** `Artifen::make()->provider()->agent()->run()` doit marcher dans 5 ans.
-3. **Interfaces avant tout.** Les contracts sont sacrés. Les implémentations sont remplaçables.
-4. **PHP d'abord.** Aucun équivalent mature de LangChain/CrewAI n'existe en PHP. Artifen comble ce vide.
-5. **TDD.** Test → Interface → Implémentation → Refactor. Aucun merge si un test échoue.
-6. **Modules auto-découvrables.** `composer require artifen/forms` → tout fonctionne.
-
-## Architecture
+## Architecture 4 niveaux
 
 ```
-                    Artifen SDK
-                         │
-            ┌────────────┼────────────┐
-            ▼            ▼            ▼
-        Providers    Registry     Pipeline
-        (LLM)        (Container)  (Workflow)
-            │            │            │
-            └────────────┼────────────┘
-                         ▼
-                   Runtime (Prompt → Memory → LLM → Response)
-                         │
-            ┌────────────┼────────────┐
-            ▼            ▼            ▼
-      WordPress     Laravel       CLI / API
-      Adapter       Adapter       Scripts
+ARTIFEN PLATFORM
+     │
+     ▼
+┌─────────────────────────────────────────────────────┐
+│  N1 — SDK (100% PHP, 0% WordPress)                 │
+│  Kernel · Engine · Providers · Pipeline · Prompt   │
+│  Memory · Agents · Skills · Tools · Events         │
+│                                                     │
+│  NE CONNAÎT PAS : add_action, WP_Query, REST API   │
+└─────────────────────────────────────────────────────┘
+     │
+     ▼
+┌─────────────────────────────────────────────────────┐
+│  N2 — WordPress Adapter (artifen/wordpress)         │
+│  Hooks · Filters · REST API · Cron · WP Filesystem │
+│  Plugin API · Shortcodes · Blocks                   │
+│                                                     │
+│  Traduit WordPress → SDK                           │
+└─────────────────────────────────────────────────────┘
+     │
+     ▼
+┌─────────────────────────────────────────────────────┐
+│  N3 — Modules (artifen/forms, artifen/commerce...) │
+│  Utilisent le SDK via l'adapter WordPress           │
+│  Déployés via Composer                              │
+└─────────────────────────────────────────────────────┘
+     │
+     ▼
+┌─────────────────────────────────────────────────────┐
+│  N4 — Plugins (installés par l'utilisateur)         │
+│  Artifen Forms · Artifen Commerce · Artifen SEO    │
+│  L'utilisateur ne voit jamais le SDK                │
+└─────────────────────────────────────────────────────┘
 ```
 
-## Marque
-- **Artifen** — du latin *artifex* (artisan, créateur)
-- Tagline : *Build Smarter*
-- Palette : Violet (#7C3AED) + Cyan (#0891B2)
-- Licence : GPL-2.0-or-later
+## Engine Layer
 
-## Roadmap 30 jours
+```
+Kernel
+  │
+  ▼
+Engine (orchestrateur de moteurs)
+  │
+  ├── Chat Engine
+  ├── Workflow Engine
+  ├── Embedding Engine
+  ├── Vision Engine
+  ├── Planning Engine
+  └── Automation Engine
+  │
+  ▼
+Runtime
+  │
+  ▼
+Providers · Agents · Skills
+```
 
-| Semaine | Objectif |
-|:-------:|:---------|
-| 1 | ✅ 25+ tests, CI GitHub, examples |
-| 2 | PromptManager, Pipeline final, Events, Logger |
-| 3 | WordPress Adapter, flux complet validé |
-| 4 | Artifen Forms MVP (CF7) |
+## Règle absolue
+> **Aucune ligne WordPress dans le SDK.**
+> `add_action()`, `WP_Query`, `wp_remote_post()` → vivent dans `artifen/wordpress`.
+> Le SDK doit pouvoir fonctionner dans Laravel, Symfony, CLI, PrestaShop.
 
-## Marchés cibles (par ordre)
+## Marketplace (vision 18 mois)
+```
+composer require artifen/marketplace
+  → Installer des Agents, Skills, Workflows
+  → Comme VSCode / Cursor / MCP
+  → Chaque développeur peut publier
+```
 
-1. 📦 WordPress (premier adaptateur)
-2. 🧪 Laravel / Symfony (framework PHP)
-3. 🖥️ CLI / Scripts d'automatisation
-4. 🏪 Drupal / PrestaShop (CMS PHP)
+## Roadmap
 
-## Règle ultime
-> Aucune fonctionnalité n'existe si elle n'a pas un test, une interface et une implémentation.
+| Phase | Objectif |
+|:-----:|:---------|
+| 1 | ✅ SDK (29 fichiers, 15 contracts, DeepSeek) |
+| 2 | 🚧 Tests + CI + Composer/Packagist |
+| 3 | WordPress Adapter |
+| 4 | Artifen Forms → WordPress.org |
+| 5 | Marketplace (Agents, Skills, Workflows) |
+| 6 | Cloud (sync, licences, analytics) |
+
+## API publique (garantie stable)
+```php
+Artifen\make()
+    ->provider('deepseek', new DeepSeekProvider($key))
+    ->run(agent: 'wordpress', task: '...');
+```
+
+## Licence
+GPL-2.0-or-later (compatible WordPress)

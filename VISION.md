@@ -1,57 +1,62 @@
-# Artifen Platform — Constitution du Projet
+# Artifen — Constitution du Projet v2
 
-**Version 1.0 — 16 Juillet 2026**
-**Fondateur : Auguste**
+**Version :** 2.0
+**Date :** 16 Juillet 2026
+**Fondateur :** Auguste
 
-## Vision
-> Devenir le standard open-source pour le développement de plugins WordPress assisté par IA.
-
-## Mission
-> Donner aux créateurs le pouvoir de construire des plateformes intelligentes — sans réinventer l'infrastructure.
-
-## Architecture de marque
-
-```
-Artifen
-├── Artifen Core      ← Kernel IA (LLM, Agents, Skills, Memory)
-├── Artifen SDK        ← Interfaces + SDK spécialisés
-├── Artifen Studio     ← Interface React
-├── Artifen Cloud      ← Marketplace (futur)
-│
-├── Artifen Forms      ← CF7 module (MVP)
-├── Artifen Commerce   ← WooCommerce module
-├── Artifen Fields     ← ACF module
-├── Artifen SEO        ← Rank Math module
-└── Artifen Builder    ← Elementor module
-```
-
-Une seule marque forte. Pas de sous-marques.
-
-## Roadmap
-
-| Phase | Produit | Priorité |
-|:-----:|:--------|:---------|
-| 1 | Architecture + SDK + Core | 🎯 Maintenant |
-| 2 | **Artifen Forms** (MVP — CF7) | 🥇 Premier plugin |
-| 3 | Artifen Commerce (WooCommerce) | 🥈 |
-| 4 | Artifen Builder (Elementor) | 🥉 |
-| 5 | Artifen Fields (ACF) | ④ |
-| 6 | Artifen SEO | ⑤ |
+## La Grande Ambition
+> Devenir le Symfony des agents IA en PHP.
+> Le framework d'orchestration d'agents pour PHP.
 
 ## Principes fondateurs
-1. Le SDK est construit UNE FOIS. Tous les plugins l'utilisent.
-2. L'IA n'est pas un gadget. C'est le moteur.
-3. Un plugin = une application sur le SDK.
-4. Contexte structuré uniquement — jamais tout WordPress au LLM.
-5. Les plugins WordPress sont des cas d'usage, pas le produit.
+1. **SDK d'abord.** Le plugin WordPress est une démonstration, pas le produit.
+2. **API publique stable.** `Artifen::make()->provider()->agent()->run()` doit marcher dans 5 ans.
+3. **Interfaces avant tout.** Les contracts sont sacrés. Les implémentations sont remplaçables.
+4. **PHP d'abord.** Aucun équivalent mature de LangChain/CrewAI n'existe en PHP. Artifen comble ce vide.
+5. **TDD.** Test → Interface → Implémentation → Refactor. Aucun merge si un test échoue.
+6. **Modules auto-découvrables.** `composer require artifen/forms` → tout fonctionne.
 
-## Actifs verrouillés
-- ✅ artifen.com
-- ✅ GitHub artifen
-- ⏳ hello@artifen.com, contact@artifen.com
-- ⏳ @artifen (X/LinkedIn)
-- ⏳ WP.org slug (au lancement)
+## Architecture
 
-## Priorité absolue
-> La vitesse d'exécution. MVP exceptionnel sur Artifen Forms.
-> Si Forms valide le Core, tous les modules suivent.
+```
+                    Artifen SDK
+                         │
+            ┌────────────┼────────────┐
+            ▼            ▼            ▼
+        Providers    Registry     Pipeline
+        (LLM)        (Container)  (Workflow)
+            │            │            │
+            └────────────┼────────────┘
+                         ▼
+                   Runtime (Prompt → Memory → LLM → Response)
+                         │
+            ┌────────────┼────────────┐
+            ▼            ▼            ▼
+      WordPress     Laravel       CLI / API
+      Adapter       Adapter       Scripts
+```
+
+## Marque
+- **Artifen** — du latin *artifex* (artisan, créateur)
+- Tagline : *Build Smarter*
+- Palette : Violet (#7C3AED) + Cyan (#0891B2)
+- Licence : GPL-2.0-or-later
+
+## Roadmap 30 jours
+
+| Semaine | Objectif |
+|:-------:|:---------|
+| 1 | ✅ 25+ tests, CI GitHub, examples |
+| 2 | PromptManager, Pipeline final, Events, Logger |
+| 3 | WordPress Adapter, flux complet validé |
+| 4 | Artifen Forms MVP (CF7) |
+
+## Marchés cibles (par ordre)
+
+1. 📦 WordPress (premier adaptateur)
+2. 🧪 Laravel / Symfony (framework PHP)
+3. 🖥️ CLI / Scripts d'automatisation
+4. 🏪 Drupal / PrestaShop (CMS PHP)
+
+## Règle ultime
+> Aucune fonctionnalité n'existe si elle n'a pas un test, une interface et une implémentation.

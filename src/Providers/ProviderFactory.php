@@ -8,6 +8,7 @@ use Artifen\Contracts\LLMProvider;
 
 class ProviderFactory
 {
+    /** @var array<string, LLMProvider> */
     private array $providers = [];
 
     public function register(string $name, LLMProvider $provider): void
@@ -20,12 +21,15 @@ class ProviderFactory
         $name ??= 'deepseek';
 
         if (!isset($this->providers[$name])) {
-            throw new ProviderNotFoundException("Provider '$name' not registered");
+            throw new ProviderNotFoundException($name);
         }
 
         return $this->providers[$name];
     }
 
+    /**
+     * @return list<string>
+     */
     public function available(): array
     {
         return array_keys($this->providers);

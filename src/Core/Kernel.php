@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Artifen\Core;
 
 use Artifen\Contracts\{Kernel as KernelInterface, LLMProvider, Agent, Skill, Prompt, Response, Context};
+use Artifen\Core\{Registry, DefaultResponse};
 use Artifen\Pipeline\ExecutionPipeline;
 
 class Kernel implements KernelInterface
@@ -62,15 +63,35 @@ class Kernel implements KernelInterface
         $agentInstance = $this->registry->agent($agent);
         $prompt = $this->registry->prompt("agents/{$agent}");
 
-        return $this->pipeline
+        $start = microtime(true);
+        $context = $this->pipeline
             ->addStage('prompt', fn($ctx) => [...$ctx, 'prompt' => $prompt->render(['task' => $task])])
             ->addStage('llm', fn($ctx) => [...$ctx, 'raw' => $providerInstance->chat(
                 [['role' => 'user', 'content' => $ctx['prompt']]],
-                ['temperature' => 0.7]
+                ['temperature' => 0.7] + $this->options
             )])
             ->execute(['task' => $task, 'agent' => $agent, 'provider' => $provider]);
+        $duration = microtime(true) - $start;
+
+        $raw = (string) ($context['raw'] ?? '');
+
+        return new DefaultResponse(
+            content: $raw,
+            success: $raw !== '',
+            duration: $duration,
+            tokens: 0,
+            provider: $provider,
+            model: $providerInstance->models()[0] ?? 'unknown',
+            meta: $context,
+        );
     }
 
-    public function registry(): Registry { return $this->registry; }
-    public function llm() { return $this->registry; }
+    public function registry(): Registry
+    {
+        return $this->registry;
+    }
+    public function llm()
+    {
+        return $this->registry;
+    }
 }

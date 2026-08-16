@@ -8,20 +8,42 @@ use Artifen\Contracts\{LLMProvider, HasCapabilities};
 
 abstract class AbstractProvider implements LLMProvider, HasCapabilities
 {
+    /** @var array<string, mixed> */
     protected array $config = [];
     protected int $maxRetries = 3;
     protected int $timeout = 30;
 
+    /**
+     * @param array<string, mixed> $config
+     */
     public function __construct(array $config = [])
     {
         $this->config = $config;
     }
 
-    public function supportsStreaming(): bool { return false; }
-    public function supportsVision(): bool { return false; }
-    public function supportsTools(): bool { return false; }
-    public function supportsJson(): bool { return true; }
-    public function supportsEmbeddings(): bool { return false; }
+    public function supportsStreaming(): bool
+    {
+        return false;
+    }
+    public function supportsVision(): bool
+    {
+        return false;
+    }
+    public function supportsTools(): bool
+    {
+        return false;
+    }
+    public function supportsJson(): bool
+    {
+        return true;
+    }
+    public function supportsEmbeddings(): bool
+    {
+        return false;
+    }
+    /**
+     * @return array<string, bool>
+     */
     public function capabilities(): array
     {
         return [
@@ -47,7 +69,7 @@ abstract class AbstractProvider implements LLMProvider, HasCapabilities
         return str_replace('Provider', '', (new \ReflectionClass($this))->getShortName());
     }
 
-    protected function retry(callable $fn, int $maxRetries = null): mixed
+    protected function retry(callable $fn, ?int $maxRetries = null): mixed
     {
         $maxRetries ??= $this->maxRetries;
         $attempt = 0;

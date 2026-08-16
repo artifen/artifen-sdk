@@ -85,6 +85,12 @@ class DeepSeekProvider extends AbstractProvider
         return $data['data'] ?? [];
     }
 
-    public function supportsStreaming(): bool { return false; }
-    public function supportsJson(): bool { return true; }
+    public function supportsStreaming(): bool
+    {
+        return false;
+    }
+    public function supportsJson(): bool
+    {
+        return true;
+    }
 }

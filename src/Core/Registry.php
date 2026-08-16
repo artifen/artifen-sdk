@@ -54,8 +54,40 @@ class Registry
         return $this->prompts[$path] ?? throw new \RuntimeException("Prompt '$path' not registered");
     }
 
-    public function providers(): array { return $this->providers; }
-    public function agents(): array { return $this->agents; }
-    public function skills(): array { return $this->skills; }
-    public function defaultProvider(): string { return $this->defaultProvider ?? 'deepseek'; }
+    /**
+     * @return array<string, LLMProvider>
+     */
+    public function providers(): array
+    {
+        return $this->providers;
+    }
+
+    /**
+     * @return array<string, Agent>
+     */
+    public function agents(): array
+    {
+        return $this->agents;
+    }
+
+    /**
+     * @return array<string, Skill>
+     */
+    public function skills(): array
+    {
+        return $this->skills;
+    }
+
+    /**
+     * @return array<string, Prompt>
+     */
+    public function prompts(): array
+    {
+        return $this->prompts;
+    }
+
+    public function defaultProvider(): string
+    {
+        return $this->defaultProvider ?? 'deepseek';
+    }
 }

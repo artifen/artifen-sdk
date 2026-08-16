@@ -8,6 +8,32 @@
 > Le framework PHP d'agents IA spécialisé WordPress.
 > Le Symfony des agents IA en PHP.
 
+## Positionnement (mis à jour 16/08/2026 — WordPress 7.0)
+
+**Contexte** : WordPress 7.0 (sorti le 20/05/2026) a intégré des fondations IA natives
+dans le core : AI Client (SDK PHP IA), Abilities API, Connectors hub (OpenAI/Anthropic/
+Gemini en quelques clics), plugin IA officiel, MCP Adapter.
+
+**Positionnement Artifen** : Artifen **ne concurrence pas** l'AI Client de WP 7.0 —
+il s'y **greffe**. WordPress fait les appels LLM de base et la connexion providers.
+Artifen apporte ce que WP 7.0 ne fait pas :
+
+| WP 7.0 (core) | Artifen (valeur ajoutée) |
+|:---------------|:--------------------------|
+| Appels LLM de base | ✅ **Agents** (framework agentique complet) |
+| Connecter des providers | ✅ **Skills** (compétences réutilisables) |
+| Générer images/titres | ✅ **Mémoire** (persistance) |
+| MCP pour devs | ✅ **Pipeline** multi-étapes |
+| | ✅ **Workflows** métier (Forms → LLM → action) |
+
+**Avantage coût** : le AI Client WP route vers OpenAI/Anthropic/Gemini.
+Artifen route vers DeepSeek direct (prix fabricant) — différenciation prix massive
+pour les clients sensibles aux coûts, tout en restant agnostique (n'importe quel
+provider via `Providers/`).
+
+**Le timing est favorable** : WordPress a éduqué le marché (mai 2026). Les plugins
+cherchent maintenant la couche agentique — c'est notre place.
+
 ## Architecture 4 niveaux
 
 ```

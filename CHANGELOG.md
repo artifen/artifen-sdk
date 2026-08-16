@@ -8,6 +8,11 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 ## [0.1.0] — 2026-08-16
 
 ### Ajouté
+- **Positionnement stratégique** (16/08/2026) : Artifen = couche agentique AU-DESSUS
+  des fondations IA natives de WordPress 7.0 (AI Client, Connectors, Abilities API).
+  Documenté dans VISION.md (section Positionnement), README.md, CONSTITUTION.md.
+  Artifen ne concurrence pas WP 7.0 — il s'y greffe (Agents, Skills, Mémoire,
+  Pipeline, Workflows) avec l'avantage coût DeepSeek direct.
 - Kernel (`Artifen\Core\Kernel`) : fabrique, enregistrement providers/agents/skills/prompts, `run()`.
 - Registry (`Artifen\Core\Registry`) : API fluide setter/getter, provider par défaut.
 - DefaultResponse : implémentation concrète de `Contracts\Response`.

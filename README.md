@@ -17,6 +17,18 @@ Un noyau IA agnostique, des interfaces propres, des agents spécialisés.
 - **Pipeline d'exécution** : composition de stages (prompt → LLM → post-traitement).
 - **Prêt pour WordPress** : licence GPL-2.0-or-later (compatible WP), PSR-4, PHP 8.2+.
 
+## 🧭 Positionnement — WordPress 7.0 et Artifen
+
+WordPress 7.0 (mai 2026) a intégré des **fondations IA natives** dans le core :
+AI Client, Abilities API, Connectors hub (OpenAI/Anthropic/Gemini), plugin IA officiel.
+
+**Artifen ne fait pas doublon** : WordPress gère les appels LLM de base et la
+connexion des providers. **Artifen apporte la couche agentique** que WP 7.0 ne
+fournit pas : Agents, Skills, Mémoire, Pipeline multi-étapes, Workflows métier.
+
+**Avantage coût** : Artifen route vers DeepSeek direct (prix fabricant) au lieu
+d'OpenAI/Anthropic — différenciation prix massive, sans verrouillage provider.
+
 ## 🏗️ Architecture
 
 ```

@@ -57,6 +57,10 @@ Plugin → Besoin réel → RFC → SDK → Tests → Release
 
 Aucune feature sans use case validé par un module.
 
+**Note WP 7.0** : le AI Client natif de WordPress 7.0 peut être branché comme
+provider via `Providers/` (comme DeepSeek ou Ollama). Le SDK reste 100% agnostique —
+WordPress vit dans l'adapter (N2), jamais dans le noyau.
+
 ---
 
 ## Règle n°5 — "Done" a une définition
